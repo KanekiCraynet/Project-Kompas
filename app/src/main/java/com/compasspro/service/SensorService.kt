@@ -110,7 +110,7 @@ class SensorService : Service(), SensorEventListener {
                 sensorManager.registerListener(
                     this@SensorService, 
                     it, 
-                    SensorManager.SENSOR_DELAY_UI
+                    SensorManager.SENSOR_DELAY_FASTEST
                 ) 
             }
             
@@ -118,7 +118,7 @@ class SensorService : Service(), SensorEventListener {
                 sensorManager.registerListener(
                     this@SensorService, 
                     it, 
-                    SensorManager.SENSOR_DELAY_UI
+                    SensorManager.SENSOR_DELAY_FASTEST
                 ) 
             }
             
@@ -126,7 +126,7 @@ class SensorService : Service(), SensorEventListener {
                 sensorManager.registerListener(
                     this@SensorService, 
                     it, 
-                    SensorManager.SENSOR_DELAY_UI
+                    SensorManager.SENSOR_DELAY_FASTEST
                 ) 
             }
         }
