@@ -73,9 +73,18 @@ class CompassViewModel @Inject constructor(
     private fun startSensorMonitoring() {
         sensorService?.let { service ->
             viewModelScope.launch {
-                service.getSensorDataFlow().collect { rawData ->
-                    processSensorData(rawData)
-                }
+                service.getSensorDataFlow()
+                    .debounceUpdates(Config.SENSOR_UPDATE_INTERVAL_MS)
+                    .filterDuplicates()
+                    .onBackground()
+                    .withErrorHandling(
+                        onError = { error ->
+                            _errorMessage.value = ErrorHandler.getErrorMessage(error)
+                        }
+                    )
+                    .collect { rawData ->
+                        processSensorData(rawData)
+                    }
             }
         }
     }
