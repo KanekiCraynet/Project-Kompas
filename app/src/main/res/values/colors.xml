@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary">#2196F3</color>
+    <color name="primary_variant">#1976D2</color>
+    <color name="secondary">#FF4081</color>
+    <color name="secondary_variant">#F50057</color>
+    
+    <!-- Background Colors -->
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F5F5F5</color>
+    
+    <!-- Text Colors -->
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_background">#212121</color>
+    <color name="on_surface">#212121</color>
+    <color name="on_surface_variant">#757575</color>
+    
+    <!-- Compass Colors -->
+    <color name="compass_needle">#F44336</color>
+    <color name="compass_ring">#424242</color>
+    <color name="compass_center">#9E9E9E</color>
+    <color name="compass_north">#F44336</color>
+    <color name="compass_south">#2196F3</color>
+    <color name="compass_east">#4CAF50</color>
+    <color name="compass_west">#FF9800</color>
+    
+    <!-- Status Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+    <color name="info">#2196F3</color>
+    
+    <!-- Wind Colors -->
+    <color name="wind_calm">#4CAF50</color>
+    <color name="wind_light">#8BC34A</color>
+    <color name="wind_moderate">#FFC107</color>
+    <color name="wind_strong">#FF9800</color>
+    <color name="wind_storm">#F44336</color>
+    
+    <!-- Location Colors -->
+    <color name="location_accurate">#4CAF50</color>
+    <color name="location_approximate">#FF9800</color>
+    <color name="location_poor">#F44336</color>
+    
+    <!-- Transparent Colors -->
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent_black">#80000000</color>
+    <color name="semi_transparent_white">#80FFFFFF</color>
+    
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#2196F3</color>
+    <color name="gradient_end">#21CBF3</color>
+    <color name="gradient_compass_start">#FF6B6B</color>
+    <color name="gradient_compass_end">#4ECDC4</color>
+</resources>
