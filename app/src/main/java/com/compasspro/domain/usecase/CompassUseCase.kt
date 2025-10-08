@@ -114,9 +114,9 @@ class CompassUseCase {
 
         // Evaluasi berdasarkan variasi
         return when {
-            accelVariation < 0.1f && magVariation < 0.1f -> SensorQuality.EXCELLENT
-            accelVariation < 0.3f && magVariation < 0.3f -> SensorQuality.GOOD
-            accelVariation < 0.5f && magVariation < 0.5f -> SensorQuality.FAIR
+            accelVariation < Config.EXCELLENT_ACCURACY_THRESHOLD && magVariation < Config.EXCELLENT_ACCURACY_THRESHOLD -> SensorQuality.EXCELLENT
+            accelVariation < Config.GOOD_ACCURACY_THRESHOLD && magVariation < Config.GOOD_ACCURACY_THRESHOLD -> SensorQuality.GOOD
+            accelVariation < Config.FAIR_ACCURACY_THRESHOLD && magVariation < Config.FAIR_ACCURACY_THRESHOLD -> SensorQuality.FAIR
             else -> SensorQuality.POOR
         }
     }
