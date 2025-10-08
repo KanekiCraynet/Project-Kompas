@@ -107,11 +107,13 @@ class SensorService : Service(), SensorEventListener {
     fun startSensorMonitoring() {
         serviceJob = CoroutineScope(Dispatchers.IO).launch {
             // Register sensor listeners dengan delay yang optimal
+            val optimalDelay = PerformanceUtils.getOptimalSensorDelay()
+            
             accelerometer?.let { 
                 sensorManager.registerListener(
                     this@SensorService, 
                     it, 
-                    SensorManager.SENSOR_DELAY_FASTEST
+                    optimalDelay
                 ) 
             }
             
@@ -119,7 +121,7 @@ class SensorService : Service(), SensorEventListener {
                 sensorManager.registerListener(
                     this@SensorService, 
                     it, 
-                    SensorManager.SENSOR_DELAY_FASTEST
+                    optimalDelay
                 ) 
             }
             
@@ -127,7 +129,7 @@ class SensorService : Service(), SensorEventListener {
                 sensorManager.registerListener(
                     this@SensorService, 
                     it, 
-                    SensorManager.SENSOR_DELAY_FASTEST
+                    optimalDelay
                 ) 
             }
         }
