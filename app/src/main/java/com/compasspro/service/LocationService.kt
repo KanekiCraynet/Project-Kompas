@@ -62,8 +62,8 @@ class LocationService : Service(), LocationListener {
     private var lastKnownLocation: Location? = null
     
     // Configuration
-    private val minTimeMs = 1000L // Update setiap 1 detik
-    private val minDistanceM = 1f // Update setiap 1 meter
+    private val minTimeMs = Config.LOCATION_UPDATE_INTERVAL_MS
+    private val minDistanceM = Config.LOCATION_UPDATE_DISTANCE_M
 
     inner class LocationBinder : Binder() {
         fun getService(): LocationService = this@LocationService
