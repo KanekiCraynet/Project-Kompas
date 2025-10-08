@@ -95,11 +95,20 @@ class CompassViewModel @Inject constructor(
     private fun startLocationMonitoring() {
         locationService?.let { service ->
             viewModelScope.launch {
-                service.getLocationDataFlow().collect { locationData ->
-                    currentLocationData = locationData
-                    updateCompassData()
-                    fetchWindData(locationData.latitude, locationData.longitude)
-                }
+                service.getLocationDataFlow()
+                    .throttle(Config.LOCATION_UPDATE_INTERVAL_MS)
+                    .filterDuplicates()
+                    .onBackground()
+                    .withErrorHandling(
+                        onError = { error ->
+                            _errorMessage.value = ErrorHandler.getErrorMessage(error)
+                        }
+                    )
+                    .collect { locationData ->
+                        currentLocationData = locationData
+                        updateCompassData()
+                        fetchWindData(locationData.latitude, locationData.longitude)
+                    }
             }
         }
     }
@@ -146,12 +155,22 @@ class CompassViewModel @Inject constructor(
     private fun fetchWindData(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             try {
-                weatherRepository.getWindData(latitude, longitude).collect { windData ->
-                    currentWindData = windData
-                    updateCompassData()
-                }
+                weatherRepository.getWindData(latitude, longitude)
+                    .retryWithBackoff(maxRetries = 3)
+                    .onBackground()
+                    .withErrorHandling(
+                        onError = { error ->
+                            // Gunakan data simulasi jika API tidak tersedia
+                            currentWindData = weatherRepository.getSimulatedWindData()
+                            updateCompassData()
+                        }
+                    )
+                    .collect { windData ->
+                        currentWindData = windData
+                        updateCompassData()
+                    }
             } catch (e: Exception) {
-                // Gunakan data simulasi jika API tidak tersedia
+                // Fallback ke data simulasi
                 currentWindData = weatherRepository.getSimulatedWindData()
                 updateCompassData()
             }
