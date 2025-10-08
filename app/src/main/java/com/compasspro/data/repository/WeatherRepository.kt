@@ -113,13 +113,13 @@ class WeatherRepository @Inject constructor(
      */
     private fun getDefaultWindData(): WindData {
         return WindData(
-            direction = 0f,
-            speed = 0f,
-            gust = 0f,
-            temperature = 25f,
-            humidity = 60f,
-            pressure = 1013f,
-            visibility = 10000f,
+            direction = Config.DEFAULT_WIND_DIRECTION,
+            speed = Config.DEFAULT_WIND_SPEED,
+            gust = Config.DEFAULT_WIND_SPEED,
+            temperature = Config.DEFAULT_TEMPERATURE,
+            humidity = Config.DEFAULT_HUMIDITY,
+            pressure = Config.DEFAULT_PRESSURE,
+            visibility = Config.DEFAULT_VISIBILITY,
             timestamp = System.currentTimeMillis()
         )
     }

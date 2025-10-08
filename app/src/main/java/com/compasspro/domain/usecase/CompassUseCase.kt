@@ -3,6 +3,7 @@ package com.compasspro.domain.usecase
 import com.compasspro.domain.model.CompassData
 import com.compasspro.domain.model.RawSensorData
 import com.compasspro.domain.model.SensorQuality
+import com.compasspro.utils.Config
 import kotlin.math.*
 
 /**
@@ -28,7 +29,7 @@ class CompassUseCase {
         // Kalibrasi sensor jika diperlukan
         if (isCalibrating) {
             calibrationData.add(rawData)
-            if (calibrationData.size >= 50) { // Ambil 50 sample untuk kalibrasi
+            if (calibrationData.size >= Config.CALIBRATION_SAMPLE_SIZE) {
                 performCalibration()
             }
         }
