@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.compasspro.domain.model.CompassData
 import com.compasspro.domain.model.SensorQuality
 import com.compasspro.ui.theme.*
+import com.compasspro.utils.Config
 import kotlin.math.*
 
 /**
