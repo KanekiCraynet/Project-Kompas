@@ -46,7 +46,7 @@ class CompassViewModel @Inject constructor(
 
     init {
         // Set magnetic declination untuk Indonesia (sekitar -1° hingga +1°)
-        magneticDeclination = 0f
+        magneticDeclination = Config.INDONESIA_MAGNETIC_DECLINATION
     }
 
     /**
