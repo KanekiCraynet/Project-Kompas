@@ -57,7 +57,7 @@ fun CompassScreen(
     val pulseAnimation by animateFloatAsState(
         targetValue = if (compassData.sensorQuality == SensorQuality.EXCELLENT) 1f else 0.7f,
         animationSpec = infiniteRepeatable(
-            animation = tween(2000),
+            animation = tween(Config.PULSE_ANIMATION_DURATION_MS),
             repeatMode = RepeatMode.Reverse
         ),
         label = "pulse_animation"
