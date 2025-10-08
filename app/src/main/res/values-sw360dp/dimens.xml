@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Small phone specific dimensions -->
+    <dimen name="compass_size">280dp</dimen>
+    <dimen name="compass_needle_length">112dp</dimen>
+    <dimen name="compass_needle_width">5dp</dimen>
+    <dimen name="compass_marking_length">10dp</dimen>
+    <dimen name="compass_text_size">22sp</dimen>
+    <dimen name="info_card_padding">14dp</dimen>
+    <dimen name="info_text_size">13sp</dimen>
+</resources>
