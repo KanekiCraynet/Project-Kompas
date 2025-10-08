@@ -139,8 +139,8 @@ class LocationService : Service(), LocationListener {
                 ) {
                     locationManager.requestLocationUpdates(
                         provider,
-                        minTimeMs * 2, // Update lebih jarang untuk network
-                        minDistanceM * 5, // Jarak lebih besar untuk network
+                        Config.NETWORK_UPDATE_INTERVAL_MS,
+                        Config.NETWORK_UPDATE_DISTANCE_M,
                         this@LocationService
                     )
                 }
