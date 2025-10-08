@@ -8,6 +8,7 @@ import android.location.LocationManager
 import com.compasspro.data.api.WeatherApiService
 import com.compasspro.data.repository.WeatherRepository
 import com.compasspro.domain.usecase.CompassUseCase
+import com.compasspro.utils.Config
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,7 +48,7 @@ object AppModule {
     @Singleton
     fun provideWeatherApiService(): WeatherApiService {
         return Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
+            .baseUrl(Config.WEATHER_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(WeatherApiService::class.java)
