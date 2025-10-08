@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tablet specific dimensions -->
+    <dimen name="compass_size">400dp</dimen>
+    <dimen name="compass_needle_length">160dp</dimen>
+    <dimen name="compass_needle_width">8dp</dimen>
+    <dimen name="compass_marking_length">16dp</dimen>
+    <dimen name="compass_text_size">32sp</dimen>
+    <dimen name="info_card_padding">24dp</dimen>
+    <dimen name="info_text_size">18sp</dimen>
+</resources>
