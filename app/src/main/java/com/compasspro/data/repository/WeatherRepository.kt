@@ -38,7 +38,7 @@ class WeatherRepository @Inject constructor(
             val response = weatherApiService.getCurrentWeather(
                 latitude = latitude,
                 longitude = longitude,
-                apiKey = "YOUR_API_KEY_HERE" // Ganti dengan API key yang valid
+                apiKey = "c1d29d5134907393e360ae999e85fa0f" // Ganti dengan API key yang valid
             )
             
             if (response.isSuccessful) {
@@ -74,7 +74,7 @@ class WeatherRepository @Inject constructor(
             val response = weatherApiService.getWeatherForecast(
                 latitude = latitude,
                 longitude = longitude,
-                apiKey = "YOUR_API_KEY_HERE" // Ganti dengan API key yang valid
+                apiKey = "c1d29d5134907393e360ae999e85fa0f" // Ganti dengan API key yang valid
             )
             
             if (response.isSuccessful) {
