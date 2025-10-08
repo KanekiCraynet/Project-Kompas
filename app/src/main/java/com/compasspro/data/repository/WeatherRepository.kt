@@ -1,8 +1,9 @@
 package com.compasspro.data.repository
 
 import com.compasspro.data.api.WeatherApiService
-import com.compasspro.data.api.toWindData
+import com.compasspro.data.model.toWindData
 import com.compasspro.domain.model.WindData
+import com.compasspro.utils.Config
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class WeatherRepository @Inject constructor(
     
     private var cachedWindData: WindData? = null
     private var lastUpdateTime: Long = 0
-    private val cacheValidityDuration = 10 * 60 * 1000L // 10 menit
+    private val cacheValidityDuration = Config.CACHE_VALIDITY_DURATION_MS
     
     /**
      * Mendapatkan data arah angin berdasarkan lokasi
