@@ -11,6 +11,8 @@ import com.compasspro.data.repository.WeatherRepository
 import com.compasspro.service.LocationService
 import com.compasspro.service.SensorService
 import com.compasspro.utils.Config
+import com.compasspro.utils.PerformanceUtils
+import com.compasspro.utils.ErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
