@@ -165,7 +165,7 @@ class CompassUseCase {
      * Selesai kalibrasi dan terapkan hasil
      */
     private fun performCalibration() {
-        if (calibrationData.size < 10) return
+        if (calibrationData.size < Config.MIN_CALIBRATION_SAMPLES) return
         
         // Hitung offset dan skala untuk kalibrasi
         val magXValues = calibrationData.map { it.magnetometerX }
