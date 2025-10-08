@@ -156,9 +156,9 @@ class CompassViewModel @Inject constructor(
             sensorService?.startCalibration()
             _errorMessage.value = "Kalibrasi dimulai. Gerakkan perangkat dalam bentuk angka 8"
             
-            // Selesai kalibrasi setelah 10 detik
+            // Selesai kalibrasi setelah delay yang ditentukan
             viewModelScope.launch {
-                kotlinx.coroutines.delay(10000)
+                kotlinx.coroutines.delay(Config.CALIBRATION_SAMPLE_SIZE * Config.SENSOR_UPDATE_INTERVAL_MS)
                 finishCalibration()
             }
         } catch (e: Exception) {
