@@ -20,6 +20,7 @@ import com.compasspro.R
 import com.compasspro.domain.model.RawSensorData
 import com.compasspro.ui.MainActivity
 import com.compasspro.utils.Config
+import com.compasspro.utils.PerformanceUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
