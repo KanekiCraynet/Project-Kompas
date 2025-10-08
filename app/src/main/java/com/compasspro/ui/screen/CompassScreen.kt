@@ -47,7 +47,7 @@ fun CompassScreen(
     val rotationAnimation by animateFloatAsState(
         targetValue = -compassData.trueHeading,
         animationSpec = tween(
-            durationMillis = 500,
+            durationMillis = Config.COMPASS_ANIMATION_DURATION_MS,
             easing = FastOutSlowInEasing
         ),
         label = "compass_rotation"
