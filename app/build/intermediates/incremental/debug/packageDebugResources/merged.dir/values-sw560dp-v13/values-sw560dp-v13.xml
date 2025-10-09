@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="compass_marking_length">13dp</dimen>
+    <dimen name="compass_needle_length">132dp</dimen>
+    <dimen name="compass_needle_width">7dp</dimen>
+    <dimen name="compass_size">330dp</dimen>
+    <dimen name="compass_text_size">26sp</dimen>
+    <dimen name="info_card_padding">18dp</dimen>
+    <dimen name="info_text_size">15sp</dimen>
+</resources>
