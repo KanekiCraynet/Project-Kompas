@@ -18,10 +18,10 @@ fi
 echo "📦 Installing dependencies..."
 npm install
 
-# Install React Native CLI if not installed
+# Install React Native CLI locally if not installed
 if ! command -v react-native &> /dev/null; then
-    echo "📱 Installing React Native CLI..."
-    npm install -g react-native-cli
+    echo "📱 Installing React Native CLI locally..."
+    npm install --save-dev react-native-cli
 fi
 
 # Clean previous builds
