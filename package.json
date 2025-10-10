@@ -10,7 +10,7 @@
     "test": "jest",
     "lint": "eslint .",
     "build-android": "cd android && ./gradlew assembleRelease",
-    "build-apk": "cd android && ./gradlew assembleRelease && cp app/build/outputs/apk/release/app-release.apk ../kompas-app.apk"
+    "build-debug": "cd android && ./gradlew assembleDebug"
   },
   "dependencies": {
     "react": "18.2.0",
