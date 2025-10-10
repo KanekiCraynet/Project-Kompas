@@ -21,7 +21,7 @@ npm install
 # Install React Native CLI locally if not installed
 if ! command -v react-native &> /dev/null; then
     echo "📱 Installing React Native CLI locally..."
-    npm install --save-dev react-native-cli
+    npm install --save-dev @react-native-community/cli
 fi
 
 # Clean previous builds
