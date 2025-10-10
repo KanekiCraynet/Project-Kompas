@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { getAccuracyStatus } from '../utils/CompassUtils';
 
-const LocationInfo = ({location, accuracy}) => {
+const LocationInfo = ({location, accuracy, compassAccuracy, isCalibrated}) => {
   const formatCoordinate = (coord) => {
     return coord.toFixed(6);
   };
@@ -43,6 +43,43 @@ const LocationInfo = ({location, accuracy}) => {
             <Text style={[styles.accuracyStatus, {color: accuracyStatus.color}]}>
               ({accuracyStatus.status})
             </Text>
+          </View>
+        </View>
+        
+        {/* Compass Accuracy */}
+        {compassAccuracy > 0 && (
+          <View style={styles.compassAccuracyContainer}>
+            <Text style={styles.accuracyLabel}>Akurasi Kompas:</Text>
+            <View style={styles.accuracyInfo}>
+              <Text style={[styles.accuracyValue, {
+                color: compassAccuracy > 0.8 ? '#4CAF50' : compassAccuracy > 0.5 ? '#FFC107' : '#FF5722'
+              }]}>
+                {Math.round(compassAccuracy * 100)}%
+              </Text>
+              <Text style={[styles.accuracyStatus, {
+                color: compassAccuracy > 0.8 ? '#4CAF50' : compassAccuracy > 0.5 ? '#FFC107' : '#FF5722'
+              }]}>
+                ({compassAccuracy > 0.8 ? 'Sangat Baik' : compassAccuracy > 0.5 ? 'Baik' : 'Kurang Baik'})
+              </Text>
+            </View>
+          </View>
+        )}
+        
+        {/* Calibration Status */}
+        <View style={styles.calibrationContainer}>
+          <Text style={styles.accuracyLabel}>Status Kalibrasi:</Text>
+          <View style={styles.accuracyInfo}>
+            <View style={styles.calibrationStatus}>
+              <View style={[
+                styles.calibrationDot,
+                { backgroundColor: isCalibrated ? '#4CAF50' : '#FFC107' }
+              ]} />
+              <Text style={[styles.accuracyStatus, {
+                color: isCalibrated ? '#4CAF50' : '#FFC107'
+              }]}>
+                {isCalibrated ? 'Ter-kalibrasi' : 'Sedang Kalibrasi...'}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -108,6 +145,28 @@ const styles = StyleSheet.create({
   accuracyStatus: {
     fontSize: 12,
     fontStyle: 'italic',
+  },
+  compassAccuracyContainer: {
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.2)',
+    paddingTop: 15,
+    marginTop: 10,
+  },
+  calibrationContainer: {
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.2)',
+    paddingTop: 15,
+    marginTop: 10,
+  },
+  calibrationStatus: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  calibrationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginRight: 8,
   },
 });
 

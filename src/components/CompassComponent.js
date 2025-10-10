@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import {
   View,
+  Text,
   StyleSheet,
   Dimensions,
   Animated,
@@ -18,7 +19,7 @@ import Svg, {
 const {width} = Dimensions.get('window');
 const COMPASS_SIZE = width * 0.7;
 
-const CompassComponent = ({heading, magnetometerData}) => {
+const CompassComponent = ({heading, magnetometerData, isCalibrated, compassAccuracy}) => {
   const rotateValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -109,6 +110,10 @@ const CompassComponent = ({heading, magnetometerData}) => {
     const centerY = COMPASS_SIZE / 2;
     const needleLength = COMPASS_SIZE / 2 - 30;
     
+    // Dynamic needle color based on calibration status
+    const northColor = isCalibrated ? "#e94560" : "#ff6b6b";
+    const southColor = isCalibrated ? "#fff" : "#f0f0f0";
+    
     return (
       <G>
         {/* North needle (red) */}
@@ -117,7 +122,7 @@ const CompassComponent = ({heading, magnetometerData}) => {
           y1={centerY}
           x2={centerX}
           y2={centerY - needleLength}
-          stroke="#e94560"
+          stroke={northColor}
           strokeWidth="4"
           strokeLinecap="round"
         />
@@ -128,20 +133,33 @@ const CompassComponent = ({heading, magnetometerData}) => {
           y1={centerY}
           x2={centerX}
           y2={centerY + needleLength}
-          stroke="#fff"
+          stroke={southColor}
           strokeWidth="4"
           strokeLinecap="round"
         />
         
-        {/* Center dot */}
+        {/* Center dot with accuracy indicator */}
         <Circle
           cx={centerX}
           cy={centerY}
           r="8"
           fill="#1a1a2e"
-          stroke="#fff"
+          stroke={isCalibrated ? "#4CAF50" : "#FFC107"}
           strokeWidth="2"
         />
+        
+        {/* Accuracy ring */}
+        {compassAccuracy > 0 && (
+          <Circle
+            cx={centerX}
+            cy={centerY}
+            r="12"
+            fill="none"
+            stroke={compassAccuracy > 0.8 ? "#4CAF50" : compassAccuracy > 0.5 ? "#FFC107" : "#FF5722"}
+            strokeWidth="2"
+            opacity={0.7}
+          />
+        )}
       </G>
     );
   };
@@ -197,6 +215,26 @@ const CompassComponent = ({heading, magnetometerData}) => {
         <View style={styles.northIndicator}>
           <View style={styles.northArrow} />
         </View>
+        
+        {/* Calibration status indicator */}
+        <View style={styles.statusIndicator}>
+          <View style={[
+            styles.statusDot, 
+            { backgroundColor: isCalibrated ? "#4CAF50" : "#FFC107" }
+          ]} />
+          <Text style={styles.statusText}>
+            {isCalibrated ? "Ter-kalibrasi" : "Kalibrasi..."}
+          </Text>
+        </View>
+        
+        {/* Accuracy indicator */}
+        {compassAccuracy > 0 && (
+          <View style={styles.accuracyIndicator}>
+            <Text style={styles.accuracyText}>
+              Akurasi: {Math.round(compassAccuracy * 100)}%
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -237,6 +275,31 @@ const styles = StyleSheet.create({
     borderBottomColor: '#fff',
     marginTop: -12,
   },
+  statusIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  statusDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginRight: 5,
+  },
+  statusText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  accuracyIndicator: {
+    marginTop: 5,
+  },
+  accuracyText: {
+    color: '#fff',
+    fontSize: 10,
+    textAlign: 'center',
+  },
 });
 
 export default CompassComponent;
+
