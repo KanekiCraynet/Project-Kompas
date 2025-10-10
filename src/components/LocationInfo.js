@@ -4,17 +4,11 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import { getAccuracyStatus } from '../utils/CompassUtils';
 
 const LocationInfo = ({location, accuracy}) => {
   const formatCoordinate = (coord) => {
     return coord.toFixed(6);
-  };
-
-  const getAccuracyStatus = (accuracy) => {
-    if (accuracy <= 5) return {text: 'Sangat Akurat', color: '#4CAF50'};
-    if (accuracy <= 10) return {text: 'Akurat', color: '#8BC34A'};
-    if (accuracy <= 20) return {text: 'Cukup Akurat', color: '#FFC107'};
-    return {text: 'Kurang Akurat', color: '#FF5722'};
   };
 
   const accuracyStatus = getAccuracyStatus(accuracy);
@@ -47,7 +41,7 @@ const LocationInfo = ({location, accuracy}) => {
               {accuracy.toFixed(1)}m
             </Text>
             <Text style={[styles.accuracyStatus, {color: accuracyStatus.color}]}>
-              ({accuracyStatus.text})
+              ({accuracyStatus.status})
             </Text>
           </View>
         </View>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,15 +14,24 @@ import {magnetometer, setUpdateIntervalForType, SensorTypes} from 'react-native-
 import CompassComponent from './components/CompassComponent';
 import LocationInfo from './components/LocationInfo';
 import Header from './components/Header';
+import {
+  calculateHeading,
+  smoothHeading,
+  getDetailedDirection,
+  validateMagnetometerData,
+  getAccuracyStatus
+} from './utils/CompassUtils';
 
 const {width, height} = Dimensions.get('window');
 
 const App = () => {
   const [magnetometerData, setMagnetometerData] = useState({x: 0, y: 0, z: 0});
   const [heading, setHeading] = useState(0);
+  const [smoothedHeading, setSmoothedHeading] = useState(0);
   const [location, setLocation] = useState(null);
   const [accuracy, setAccuracy] = useState(0);
   const [isLocationEnabled, setIsLocationEnabled] = useState(false);
+  const previousHeadingRef = useRef(0);
 
   useEffect(() => {
     requestPermissions();
@@ -62,17 +71,23 @@ const App = () => {
     setUpdateIntervalForType(SensorTypes.magnetometer, 100);
     
     const subscription = magnetometer.subscribe(({x, y, z}) => {
-      setMagnetometerData({x, y, z});
+      const data = {x, y, z};
       
-      // Calculate heading from magnetometer data
-      let angle = Math.atan2(y, x) * (180 / Math.PI);
-      angle = angle < 0 ? angle + 360 : angle;
+      // Validate magnetometer data
+      if (!validateMagnetometerData(data)) {
+        return;
+      }
       
-      // Apply magnetic declination correction (simplified)
-      const magneticDeclination = getMagneticDeclination(location);
-      angle = angle + magneticDeclination;
+      setMagnetometerData(data);
       
-      setHeading(angle);
+      // Calculate heading using utility function
+      const newHeading = calculateHeading(data, location);
+      setHeading(newHeading);
+      
+      // Apply smoothing to reduce jitter
+      const smoothed = smoothHeading(newHeading, previousHeadingRef.current, 0.15);
+      setSmoothedHeading(smoothed);
+      previousHeadingRef.current = smoothed;
     });
 
     return () => subscription.unsubscribe();
@@ -117,29 +132,8 @@ const App = () => {
     }
   };
 
-  const getMagneticDeclination = (location) => {
-    if (!location) return 0;
-    
-    // Simplified magnetic declination calculation
-    // In a real app, you would use a proper magnetic declination service
-    const {latitude, longitude} = location;
-    
-    // Basic approximation for Indonesia region
-    if (latitude >= -11 && latitude <= 6 && longitude >= 95 && longitude <= 141) {
-      return 0.5; // Approximate declination for Indonesia
-    }
-    
-    return 0;
-  };
-
-  const getDirectionName = (heading) => {
-    const directions = [
-      'Utara', 'Utara-Timur', 'Timur', 'Tenggara',
-      'Selatan', 'Barat Daya', 'Barat', 'Barat Laut'
-    ];
-    
-    const index = Math.round(heading / 45) % 8;
-    return directions[index];
+  const getDetailedDirectionInfo = (heading) => {
+    return getDetailedDirection(heading);
   };
 
   return (
@@ -150,16 +144,16 @@ const App = () => {
       
       <View style={styles.content}>
         <CompassComponent 
-          heading={heading}
+          heading={smoothedHeading}
           magnetometerData={magnetometerData}
         />
         
         <View style={styles.infoContainer}>
           <Text style={styles.headingText}>
-            {Math.round(heading)}°
+            {Math.round(smoothedHeading)}°
           </Text>
           <Text style={styles.directionText}>
-            {getDirectionName(heading)}
+            {getDetailedDirectionInfo(smoothedHeading).direction}
           </Text>
           
           {location && (
